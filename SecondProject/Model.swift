@@ -18,8 +18,3 @@ struct Model {
     self.descriprion = description
   }
 }
-extension Model: Hashable {
-  static func == (lhs: Model, rhs: Model) -> Bool {
-    true
-  }
-}

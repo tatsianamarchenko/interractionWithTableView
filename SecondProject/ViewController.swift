@@ -23,14 +23,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
 
     super.viewDidLoad()
-
-    let useDragAndDropReordering = true
-
-    if useDragAndDropReordering {
-        table.dragDelegate = self
-        table.dropDelegate = self
-        table.dragInteractionEnabled = true
-    }
+    table.dragDelegate = self
+    table.dragInteractionEnabled = true
 
     var sourceArray = [UIImage]()
     for _ in 0...100 {
@@ -97,13 +91,6 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
     present(navVC, animated: true)
   }
 
-   func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-      return true
-  }
-
-   func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-  }
-
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
       modelArray.remove(at: indexPath.row)
@@ -114,39 +101,28 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension ViewController: UITableViewDragDelegate {
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let item = modelArray[indexPath.row]
-        let itemProvider = NSItemProvider()
-        let dragItem = UIDragItem(itemProvider: itemProvider)
-        dragItem.localObject = item
-        return [dragItem]
-    }
-}
+  func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+    let item = modelArray[indexPath.row]
+    let itemProvider = NSItemProvider()
+    let dragItem = UIDragItem(itemProvider: itemProvider)
+    dragItem.localObject = item
+    return [dragItem]
+  }
 
-extension ViewController: UITableViewDropDelegate {
-    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        print("Can Handle")
-        return true
+  func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    guard sourceIndexPath != destinationIndexPath else {
+      return
     }
 
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        guard let draggedItems = coordinator.session.localDragSession?.items else { return }
-        guard let destinationPath = coordinator.destinationIndexPath else { return }
-        let localObjects = draggedItems.compactMap { return $0.localObject as? Model }
+    let item = modelArray[sourceIndexPath.row]
 
-        var newItems = modelArray.filter { cell in
-            !localObjects.contains(where: { $0 == cell })
-        }
-
-        var insertIndex = destinationPath.row
-        if insertIndex > newItems.count {
-            insertIndex = newItems.count
-        }
-
-        localObjects.reversed().forEach { object in
-            newItems.insert(object, at: insertIndex)
-        }
-
-        modelArray = newItems
+    if sourceIndexPath.row < destinationIndexPath.row {
+      modelArray.insert(item, at: destinationIndexPath.row + 1)
+      modelArray.remove(at: sourceIndexPath.row)
+    } else {
+      modelArray.remove(at: sourceIndexPath.row)
+      modelArray.insert(item, at: destinationIndexPath.row)
     }
+    print(modelArray)
+  }
 }
