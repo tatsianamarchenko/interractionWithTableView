@@ -7,7 +7,8 @@
 
 import Foundation
 import UIKit
-class Model {
+
+struct Model {
   var image : UIImage
   var title : String
   var descriprion : String
@@ -15,5 +16,10 @@ class Model {
     self.image = image
     self.title = title
     self.descriprion = description
+  }
+}
+extension Model: Hashable {
+  static func == (lhs: Model, rhs: Model) -> Bool {
+    true
   }
 }

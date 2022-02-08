@@ -1,5 +1,5 @@
 //
-//  SeconfViewController.swift
+//  SecondViewController.swift
 //  SecondProject
 //
 //  Created by Tatsiana Marchanka on 8.02.22.

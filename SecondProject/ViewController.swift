@@ -10,6 +10,7 @@ import UIKit
 import UIKit
 
 class ViewController: UIViewController {
+
   var modelArray = [Model]()
 
   let table : UITableView = {
@@ -23,8 +24,16 @@ class ViewController: UIViewController {
 
     super.viewDidLoad()
 
+    let useDragAndDropReordering = true
+
+    if useDragAndDropReordering {
+        table.dragDelegate = self
+        table.dropDelegate = self
+        table.dragInteractionEnabled = true
+    }
+
     var sourceArray = [UIImage]()
-    for _ in 0...101 {
+    for _ in 0...100 {
       let img1 = UIImage(named: "1")
       if let img1 = img1 { sourceArray.append(img1)}
       let img2 = UIImage(named: "2")
@@ -47,15 +56,16 @@ class ViewController: UIViewController {
       if let img10 = img10 { sourceArray.append(img10)}
     }
 
-    for i in 1...1000 {
+    for i in 0..<1000 {
       let image = sourceArray[i]
-      modelArray.append(Model(image: image, title: "Title \(i)", description: "Description \(i)"))
+      modelArray.append(Model(image: image, title: "Title \(i+1)", description: "Description \(i+1)"))
     }
 
     view.backgroundColor = .systemBackground
+
     table.dataSource = self
     table.delegate = self
-
+    
     view.addSubview(table)
 
     NSLayoutConstraint.activate([
@@ -66,6 +76,7 @@ class ViewController: UIViewController {
 }
 
 extension  ViewController: UITableViewDelegate, UITableViewDataSource {
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return modelArray.count
   }
@@ -81,9 +92,61 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     let rootVC = SecondViewController(imageItem: modelArray[indexPath.row].image, descriptionItem: modelArray[indexPath.row].descriprion)
-        let navVC = UINavigationController(rootViewController: rootVC)
-        navVC.modalPresentationStyle = .fullScreen
-        present(navVC, animated: true)
+    let navVC = UINavigationController(rootViewController: rootVC)
+    navVC.modalPresentationStyle = .fullScreen
+    present(navVC, animated: true)
+  }
+
+   func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+      return true
+  }
+
+   func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+  }
+
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      modelArray.remove(at: indexPath.row)
+      tableView.deleteRows(at: [indexPath], with: .fade)
+    }
   }
 }
 
+
+extension ViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let item = modelArray[indexPath.row]
+        let itemProvider = NSItemProvider()
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = item
+        return [dragItem]
+    }
+}
+
+extension ViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        print("Can Handle")
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        guard let draggedItems = coordinator.session.localDragSession?.items else { return }
+        guard let destinationPath = coordinator.destinationIndexPath else { return }
+        let localObjects = draggedItems.compactMap { return $0.localObject as? Model }
+
+        var newItems = modelArray.filter { cell in
+            !localObjects.contains(where: { $0 == cell })
+        }
+
+        var insertIndex = destinationPath.row
+        if insertIndex > newItems.count {
+            insertIndex = newItems.count
+        }
+
+        localObjects.reversed().forEach { object in
+            newItems.insert(object, at: insertIndex)
+        }
+
+        modelArray = newItems
+    }
+}

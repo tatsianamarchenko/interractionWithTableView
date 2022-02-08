@@ -47,7 +47,6 @@ class Cell: UITableViewCell {
       descrip.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 
       title.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20),
-      title.bottomAnchor.constraint(equalTo: descrip.topAnchor, constant: 3),
       title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
 
       image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
