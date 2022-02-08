@@ -11,7 +11,6 @@ import UIKit
 
 class ViewController: UIViewController {
   var modelArray = [Model]()
-  var imagesArray = [UIImage(named: "1"), UIImage(named: "2"), UIImage(named: "3"), UIImage(named: "4"), UIImage(named: "5"), UIImage(named: "6"), UIImage(named: "7"), UIImage(named: "8"), UIImage(named: "9"), UIImage(named: "10")]
 
   let table : UITableView = {
     let table = UITableView()
@@ -46,12 +45,11 @@ class ViewController: UIViewController {
       if let img9 = img9 { sourceArray.append(img9)}
       let img10 = UIImage(named: "10")
       if let img10 = img10 { sourceArray.append(img10)}
-
     }
 
     for i in 1...1000 {
       let image = sourceArray[i]
-      modelArray.append(Model(image: image, title: "Title \(i)", description: "Discription \(i)"))
+      modelArray.append(Model(image: image, title: "Title \(i)", description: "Description \(i)"))
     }
 
     view.backgroundColor = .systemBackground
@@ -77,8 +75,15 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
     cell.descrip.text = modelArray[indexPath.row].descriprion
     cell.title.text = modelArray[indexPath.row].title
     cell.image.image = modelArray[indexPath.row].image
-
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    let rootVC = SecondViewController(imageItem: modelArray[indexPath.row].image, descriptionItem: modelArray[indexPath.row].descriprion)
+        let navVC = UINavigationController(rootViewController: rootVC)
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
   }
 }
 
