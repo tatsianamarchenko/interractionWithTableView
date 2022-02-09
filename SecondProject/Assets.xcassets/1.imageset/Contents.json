@@ -6,6 +6,7 @@
       "scale" : "1x"
     },
     {
+      "compression-type" : "automatic",
       "filename" : "baseline_sports_tennis_black_48pt_2x.png",
       "idiom" : "universal",
       "scale" : "2x"
@@ -19,5 +20,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "auto-scaling" : "auto"
   }
 }

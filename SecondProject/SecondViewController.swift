@@ -18,17 +18,29 @@ class SecondViewController: UIViewController {
     var image = UIImageView()
     image.layoutSubviews()
     image.translatesAutoresizingMaskIntoConstraints = false
-//    image.backgroundColor = .systemGray3
-    image.contentMode = .scaleAspectFill
+    image.backgroundColor = .systemGray3
+    image.contentMode = .scaleAspectFit
+    image.layer.cornerRadius = 50
+    image.clipsToBounds = true
     return image
   }()
 
   private let descrip : UILabel = {
     var descrip = UILabel()
     descrip.textAlignment = .center
-    descrip.font = .systemFont(ofSize: 30)
+    descrip.font = .systemFont(ofSize: 25)
     descrip.translatesAutoresizingMaskIntoConstraints = false
     return descrip
+  }()
+
+  var stack : UIStackView = {
+    let stack = UIStackView()
+    stack.translatesAutoresizingMaskIntoConstraints = false
+    stack.axis = .vertical
+    stack.backgroundColor = .systemPink
+    stack.distribution = .fill
+    stack.alignment = .center
+    return stack
   }()
 
   override func viewDidLoad() {
@@ -36,32 +48,22 @@ class SecondViewController: UIViewController {
 
     view.backgroundColor = .systemBackground
 
-    let stack = UIStackView(arrangedSubviews: [image, descrip])
-    stack.axis = .vertical
-    stack.backgroundColor = .systemPink
-    stack.distribution = .equalSpacing
-    stack.alignment = .center
-    stack.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(stack)
-
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .done, target: self, action: #selector(cancel))
+
+   let stack = UIStackView(arrangedSubviews: [image, descrip])
+      stack.translatesAutoresizingMaskIntoConstraints = false
+      stack.axis = .vertical
+//      stack.distribution = .fill
+      stack.alignment = .center
+    view.addSubview(stack)
 
     NSLayoutConstraint.activate([
       stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      image.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -300),
-      image.heightAnchor.constraint(equalTo: view.widthAnchor, constant: -300),
       stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-
+      image.widthAnchor.constraint(equalToConstant: 96),
+      image.heightAnchor.constraint(equalToConstant: 96),
     ])
   }
-
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-      image.layer.masksToBounds = true
-    image.layer.cornerRadius = image.frame.size.height / 2
-  }
-
 
   @objc func cancel () {
     dismiss(animated: true, completion: nil)

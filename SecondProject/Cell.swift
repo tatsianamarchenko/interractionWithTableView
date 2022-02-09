@@ -28,7 +28,7 @@ class Cell: UITableViewCell {
   var descrip : UILabel = {
     var descrip = UILabel()
     descrip.translatesAutoresizingMaskIntoConstraints = false
-    descrip.font = UIFont.systemFont(ofSize: 18)
+    descrip.font = UIFont.systemFont(ofSize: 16)
     descrip.textColor = .secondaryLabel
     return descrip
   }()
@@ -65,4 +65,3 @@ class Cell: UITableViewCell {
     image.layer.cornerRadius = image.frame.size.height / 2
   }
 }
-

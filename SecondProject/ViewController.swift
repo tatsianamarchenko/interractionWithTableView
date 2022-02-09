@@ -91,6 +91,10 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
     present(navVC, animated: true)
   }
 
+  func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+      .delete
+    }
+
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
       modelArray.remove(at: indexPath.row)
@@ -113,9 +117,7 @@ extension ViewController: UITableViewDragDelegate {
     guard sourceIndexPath != destinationIndexPath else {
       return
     }
-
     let item = modelArray[sourceIndexPath.row]
-
     if sourceIndexPath.row < destinationIndexPath.row {
       modelArray.insert(item, at: destinationIndexPath.row + 1)
       modelArray.remove(at: sourceIndexPath.row)
@@ -123,6 +125,5 @@ extension ViewController: UITableViewDragDelegate {
       modelArray.remove(at: sourceIndexPath.row)
       modelArray.insert(item, at: destinationIndexPath.row)
     }
-    print(modelArray)
   }
 }
