@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class ViewController: UIViewController {
 
   var modelArray = [Model]()
@@ -20,12 +18,29 @@ class ViewController: UIViewController {
     return table
   }()
 
-  override func viewDidLoad() {
+  override func loadView() {
+    super.loadView()
+    fillModelArray()
+  }
 
+  override func viewDidLoad() {
     super.viewDidLoad()
+
+    view.backgroundColor = .systemBackground
+    view.addSubview(table)
+
     table.dragDelegate = self
     table.dragInteractionEnabled = true
+    table.dataSource = self
+    table.delegate = self
 
+    NSLayoutConstraint.activate([
+      table.widthAnchor.constraint(equalTo: view.widthAnchor),
+      table.heightAnchor.constraint(equalTo: view.heightAnchor),
+    ])
+  }
+
+  func fillModelArray() {
     var sourceArray = [UIImage]()
     for _ in 0...100 {
       let img1 = UIImage(named: "1")
@@ -54,18 +69,6 @@ class ViewController: UIViewController {
       let image = sourceArray[i]
       modelArray.append(Model(image: image, title: "Title \(i+1)", description: "Description \(i+1)"))
     }
-
-    view.backgroundColor = .systemBackground
-
-    table.dataSource = self
-    table.delegate = self
-    
-    view.addSubview(table)
-
-    NSLayoutConstraint.activate([
-      table.widthAnchor.constraint(equalTo: view.widthAnchor),
-      table.heightAnchor.constraint(equalTo: view.heightAnchor),
-    ])
   }
 }
 
@@ -76,10 +79,10 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = table.dequeueReusableCell(withIdentifier: Cell.cellIdentifier, for: indexPath) as! Cell
-    cell.descrip.text = modelArray[indexPath.row].descriprion
-    cell.title.text = modelArray[indexPath.row].title
-    cell.image.image = modelArray[indexPath.row].image
+    guard let cell = table.dequeueReusableCell(withIdentifier: Cell.cellIdentifier, for: indexPath) as? Cell else {
+      return UITableViewCell()
+    }
+    cell.config(model: modelArray[indexPath.row])
     return cell
   }
 
@@ -92,8 +95,8 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-      .delete
-    }
+    .delete
+  }
 
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
@@ -102,7 +105,6 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
     }
   }
 }
-
 
 extension ViewController: UITableViewDragDelegate {
   func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {

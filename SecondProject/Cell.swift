@@ -12,6 +12,7 @@ class Cell: UITableViewCell {
   var image : UIImageView = {
     var image = UIImageView()
     image.translatesAutoresizingMaskIntoConstraints = false
+    image.image = UIImage(named: "1")
     image.backgroundColor = .systemGray3
     image.contentMode = .scaleAspectFit
     return image
@@ -38,6 +39,7 @@ class Cell: UITableViewCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+
     contentView.addSubview(descrip)
     contentView.addSubview(image)
     contentView.addSubview(title)
@@ -55,13 +57,20 @@ class Cell: UITableViewCell {
     ])
   }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
 
   override func layoutSubviews() {
     super.layoutSubviews()
     image.layer.masksToBounds = true
-    image.layer.cornerRadius = image.frame.size.height / 2
+    image.layer.cornerRadius = image.intrinsicContentSize.width / 2
+  }
+
+  func config (model : Model) {
+    descrip.text = model.descriprion
+    title.text = model.title
+    image.image = model.image
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }
