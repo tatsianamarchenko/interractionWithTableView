@@ -8,13 +8,16 @@
 import Foundation
 import UIKit
 
-struct Model {
+class Model {
+
   var image : UIImage
   var title : String
   var descriprion : String
+
   init(image: UIImage, title: String, description: String) {
     self.image = image
     self.title = title
     self.descriprion = description
   }
+
 }

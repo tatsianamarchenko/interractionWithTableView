@@ -9,7 +9,7 @@ import UIKit
 
 class Cell: UITableViewCell {
 
-  var image : UIImageView = {
+  private var image : UIImageView = {
     var image = UIImageView()
     image.translatesAutoresizingMaskIntoConstraints = false
     image.image = UIImage(named: "1")
@@ -18,7 +18,7 @@ class Cell: UITableViewCell {
     return image
   }()
 
-  var title : UILabel = {
+  private var title : UILabel = {
     var title = UILabel()
     title.translatesAutoresizingMaskIntoConstraints = false
     title.font = UIFont.systemFont(ofSize: 20)
@@ -26,7 +26,7 @@ class Cell: UITableViewCell {
     return title
   }()
 
-  var descrip : UILabel = {
+  private var descrip : UILabel = {
     var descrip = UILabel()
     descrip.translatesAutoresizingMaskIntoConstraints = false
     descrip.font = UIFont.systemFont(ofSize: 16)

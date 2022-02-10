@@ -17,32 +17,42 @@ class SecondViewController: UIViewController {
     image.contentMode = .scaleAspectFit
     return image
   }()
-  
-  private let descrip : UILabel = {
+
+
+  private var titleItem : UILabel = {
+    var title = UILabel()
+    title.translatesAutoresizingMaskIntoConstraints = false
+    title.font = UIFont.systemFont(ofSize: 30)
+    title.textColor = .label
+    return title
+  }()
+
+  private var descrip : UILabel = {
     var descrip = UILabel()
-    descrip.textAlignment = .center
-    descrip.font = .systemFont(ofSize: 25)
     descrip.translatesAutoresizingMaskIntoConstraints = false
+    descrip.font = UIFont.systemFont(ofSize: 20)
+    descrip.textAlignment = .center
+    descrip.textColor = .secondaryLabel
     return descrip
   }()
   
-  var stack : UIStackView = {
+  private var stack : UIStackView = {
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
-    stack.backgroundColor = .systemPink
     stack.distribution = .fill
     stack.alignment = .center
     return stack
   }()
   
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     view.backgroundColor = .systemBackground
 
     navigationBarConfig()
 
-    let stack = UIStackView(arrangedSubviews: [image, descrip])
+    let stack = UIStackView(arrangedSubviews: [image, titleItem, descrip])
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
     stack.alignment = .center
@@ -56,9 +66,7 @@ class SecondViewController: UIViewController {
     ])
   }
 
-  func navigationBarConfig() {
-    title = "Description"
-
+  private func navigationBarConfig() {
     let appearance = UINavigationBarAppearance()
     appearance.configureWithOpaqueBackground()
     appearance.backgroundColor = UIColor.systemGray3
@@ -77,10 +85,12 @@ class SecondViewController: UIViewController {
     image.layer.cornerRadius = image.intrinsicContentSize.width
   }
   
-  init(imageItem : UIImage, descriptionItem : String) {
-    image.image = imageItem
-    descrip.text = descriptionItem
+  init(imageItem : UIImage, titleItem : String, descriptionItem : String) {
+    self.image.image = imageItem
+    self.titleItem.text = titleItem
+    self.descrip.text = descriptionItem
     super.init(nibName: nil, bundle: nil)
+    title = titleItem
   }
   
   required init?(coder: NSCoder) {

@@ -30,7 +30,7 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     view.backgroundColor = .systemBackground
     view.addSubview(table)
 
@@ -93,7 +93,7 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
-    let vc = SecondViewController(imageItem: modelArray[indexPath.row].image, descriptionItem: modelArray[indexPath.row].descriprion)
+    let vc = SecondViewController(imageItem: modelArray[indexPath.row].image, titleItem: modelArray[indexPath.row].title, descriptionItem: modelArray[indexPath.row].descriprion)
     navigationController?.pushViewController(vc, animated: true)
   }
 
