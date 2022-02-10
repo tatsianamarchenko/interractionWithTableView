@@ -23,9 +23,14 @@ class ViewController: UIViewController {
     fillModelArray()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.isHidden = true
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     view.backgroundColor = .systemBackground
     view.addSubview(table)
 
@@ -88,10 +93,8 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
-    let rootVC = SecondViewController(imageItem: modelArray[indexPath.row].image, descriptionItem: modelArray[indexPath.row].descriprion)
-    let navVC = UINavigationController(rootViewController: rootVC)
-    navVC.modalPresentationStyle = .fullScreen
-    present(navVC, animated: true)
+    let vc = SecondViewController(imageItem: modelArray[indexPath.row].image, descriptionItem: modelArray[indexPath.row].descriprion)
+    navigationController?.pushViewController(vc, animated: true)
   }
 
   func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

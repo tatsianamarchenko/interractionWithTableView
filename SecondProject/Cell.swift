@@ -56,8 +56,7 @@ class Cell: UITableViewCell {
       image.topAnchor.constraint(equalTo: title.topAnchor),
     ])
   }
-
-
+  
   override func layoutSubviews() {
     super.layoutSubviews()
     image.layer.masksToBounds = true

@@ -38,11 +38,10 @@ class SecondViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     view.backgroundColor = .systemBackground
 
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(cancel))
-    
+    navigationBarConfig()
+
     let stack = UIStackView(arrangedSubviews: [image, descrip])
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
@@ -57,14 +56,25 @@ class SecondViewController: UIViewController {
     ])
   }
 
+  func navigationBarConfig() {
+    title = "Description"
+
+    let appearance = UINavigationBarAppearance()
+    appearance.configureWithOpaqueBackground()
+    appearance.backgroundColor = UIColor.systemGray3
+    appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBackground]
+    navigationItem.standardAppearance = appearance
+    navigationItem.scrollEdgeAppearance = appearance
+    navigationItem.compactAppearance = appearance
+
+    navigationController?.navigationBar.isHidden = false
+    navigationController?.navigationBar.prefersLargeTitles = true
+  }
+
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     image.clipsToBounds = true
     image.layer.cornerRadius = image.intrinsicContentSize.width
-  }
-
-  @objc func cancel () {
-    dismiss(animated: true, completion: nil)
   }
   
   init(imageItem : UIImage, descriptionItem : String) {
