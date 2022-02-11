@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-  var modelArray = [Model]()
+ private var modelArray = [Model]()
 
  private lazy var table : UITableView = {
     let table = UITableView()
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
 
   override func loadView() {
     super.loadView()
-    fillModelArray()
+    filledModelArray()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
     ])
   }
 
-  func fillModelArray() {
+ private func filledModelArray() {
     var sourceArray = [UIImage]()
     for _ in 0...100 {
       let img1 = UIImage(named: "1")

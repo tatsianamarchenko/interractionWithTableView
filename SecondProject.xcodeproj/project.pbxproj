@@ -62,15 +62,47 @@
 			children = (
 				BF2F9B6127B2EC6600B5C53E /* AppDelegate.swift */,
 				BF2F9B6327B2EC6600B5C53E /* SceneDelegate.swift */,
-				BF2F9B6527B2EC6600B5C53E /* ViewController.swift */,
-				BF4C9ED027B2F0B5002A85A1 /* SecondViewController.swift */,
-				BF2F9B7727B2ECB300B5C53E /* Model.swift */,
-				BF2F9B7527B2EC9700B5C53E /* Cell.swift */,
-				BF2F9B6A27B2EC6800B5C53E /* Assets.xcassets */,
-				BF2F9B6C27B2EC6800B5C53E /* LaunchScreen.storyboard */,
-				BF2F9B6F27B2EC6800B5C53E /* Info.plist */,
+				BF9B41DB27B6DD3E009E8810 /* View Controllers */,
+				BF9B41DC27B6DD73009E8810 /* Views */,
+				BF9B41DA27B6DD2C009E8810 /* Models */,
+				BF9B41D927B6D99B009E8810 /* Supporting files */,
 			);
 			path = SecondProject;
+			sourceTree = "<group>";
+		};
+		BF9B41D927B6D99B009E8810 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				BF2F9B6F27B2EC6800B5C53E /* Info.plist */,
+				BF2F9B6C27B2EC6800B5C53E /* LaunchScreen.storyboard */,
+				BF2F9B6A27B2EC6800B5C53E /* Assets.xcassets */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		BF9B41DA27B6DD2C009E8810 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BF2F9B7727B2ECB300B5C53E /* Model.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BF9B41DB27B6DD3E009E8810 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BF4C9ED027B2F0B5002A85A1 /* SecondViewController.swift */,
+				BF2F9B6527B2EC6600B5C53E /* ViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BF9B41DC27B6DD73009E8810 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF2F9B7527B2EC9700B5C53E /* Cell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

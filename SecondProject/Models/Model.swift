@@ -5,7 +5,6 @@
 //  Created by Tatsiana Marchanka on 8.02.22.
 //
 
-import Foundation
 import UIKit
 
 class Model {
@@ -19,5 +18,4 @@ class Model {
     self.title = title
     self.descriprion = description
   }
-
 }

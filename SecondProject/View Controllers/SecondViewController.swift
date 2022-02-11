@@ -18,7 +18,6 @@ class SecondViewController: UIViewController {
     return image
   }()
 
-
   private lazy var titleSecond : UILabel = {
     var title = UILabel()
     title.translatesAutoresizingMaskIntoConstraints = false
@@ -35,18 +34,8 @@ class SecondViewController: UIViewController {
     descrip.textColor = .secondaryLabel
     return descrip
   }()
-  
-  private lazy var stack : UIStackView = {
-    let stack = UIStackView()
-    stack.translatesAutoresizingMaskIntoConstraints = false
-    stack.axis = .vertical
-    stack.distribution = .fill
-    stack.alignment = .center
-    return stack
-  }()
-  
+
   override func viewDidLoad() {
-    
     super.viewDidLoad()
     view.backgroundColor = .systemBackground
 
@@ -70,13 +59,18 @@ class SecondViewController: UIViewController {
     let appearance = UINavigationBarAppearance()
     appearance.configureWithOpaqueBackground()
     appearance.backgroundColor = UIColor.systemGray3
-    appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBackground]
     navigationItem.standardAppearance = appearance
     navigationItem.scrollEdgeAppearance = appearance
     navigationItem.compactAppearance = appearance
 
+    navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.backward.2.fill")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(popVC))
+
     navigationController?.navigationBar.isHidden = false
     navigationController?.navigationBar.prefersLargeTitles = true
+  }
+
+  @objc func popVC() {
+    navigationController?.popViewController(animated: true)
   }
 
   override func viewDidLayoutSubviews() {
