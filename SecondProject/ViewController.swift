@@ -11,7 +11,7 @@ class ViewController: UIViewController {
 
   var modelArray = [Model]()
 
-  let table : UITableView = {
+ private lazy var table : UITableView = {
     let table = UITableView()
     table.register(Cell.self, forCellReuseIdentifier: Cell.cellIdentifier)
     table.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     table.dragInteractionEnabled = true
     table.dataSource = self
     table.delegate = self
-
+    
     NSLayoutConstraint.activate([
       table.widthAnchor.constraint(equalTo: view.widthAnchor),
       table.heightAnchor.constraint(equalTo: view.heightAnchor),
@@ -89,6 +89,10 @@ extension  ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     cell.config(model: modelArray[indexPath.row])
     return cell
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 60
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

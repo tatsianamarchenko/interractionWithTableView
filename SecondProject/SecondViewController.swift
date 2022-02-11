@@ -9,7 +9,7 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
-  private let image : UIImageView = {
+  private lazy var imageSecond : UIImageView = {
     var image = UIImageView()
     image.layoutSubviews()
     image.translatesAutoresizingMaskIntoConstraints = false
@@ -19,7 +19,7 @@ class SecondViewController: UIViewController {
   }()
 
 
-  private var titleItem : UILabel = {
+  private lazy var titleSecond : UILabel = {
     var title = UILabel()
     title.translatesAutoresizingMaskIntoConstraints = false
     title.font = UIFont.systemFont(ofSize: 30)
@@ -27,7 +27,7 @@ class SecondViewController: UIViewController {
     return title
   }()
 
-  private var descrip : UILabel = {
+  private lazy var descripSecond : UILabel = {
     var descrip = UILabel()
     descrip.translatesAutoresizingMaskIntoConstraints = false
     descrip.font = UIFont.systemFont(ofSize: 20)
@@ -36,7 +36,7 @@ class SecondViewController: UIViewController {
     return descrip
   }()
   
-  private var stack : UIStackView = {
+  private lazy var stack : UIStackView = {
     let stack = UIStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
@@ -52,7 +52,7 @@ class SecondViewController: UIViewController {
 
     navigationBarConfig()
 
-    let stack = UIStackView(arrangedSubviews: [image, titleItem, descrip])
+    let stack = UIStackView(arrangedSubviews: [imageSecond, titleSecond, descripSecond])
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
     stack.alignment = .center
@@ -61,8 +61,8 @@ class SecondViewController: UIViewController {
     NSLayoutConstraint.activate([
       stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-      image.widthAnchor.constraint(equalToConstant: image.intrinsicContentSize.width*2),
-      image.heightAnchor.constraint(equalToConstant: image.intrinsicContentSize.height*2)
+      imageSecond.widthAnchor.constraint(equalToConstant: imageSecond.intrinsicContentSize.width*2),
+      imageSecond.heightAnchor.constraint(equalToConstant: imageSecond.intrinsicContentSize.height*2)
     ])
   }
 
@@ -81,16 +81,16 @@ class SecondViewController: UIViewController {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    image.clipsToBounds = true
-    image.layer.cornerRadius = image.intrinsicContentSize.width
+    imageSecond.clipsToBounds = true
+    imageSecond.layer.cornerRadius = imageSecond.intrinsicContentSize.width
   }
   
   init(imageItem : UIImage, titleItem : String, descriptionItem : String) {
-    self.image.image = imageItem
-    self.titleItem.text = titleItem
-    self.descrip.text = descriptionItem
     super.init(nibName: nil, bundle: nil)
-    title = titleItem
+    imageSecond.image = imageItem
+    titleSecond.text = titleItem
+    descripSecond.text = descriptionItem
+    self.title = titleItem
   }
   
   required init?(coder: NSCoder) {

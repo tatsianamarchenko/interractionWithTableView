@@ -9,16 +9,15 @@ import UIKit
 
 class Cell: UITableViewCell {
 
-  private var image : UIImageView = {
+  private lazy var image : UIImageView = {
     var image = UIImageView()
     image.translatesAutoresizingMaskIntoConstraints = false
-    image.image = UIImage(named: "1")
     image.backgroundColor = .systemGray3
     image.contentMode = .scaleAspectFit
     return image
   }()
 
-  private var title : UILabel = {
+  private lazy var title : UILabel = {
     var title = UILabel()
     title.translatesAutoresizingMaskIntoConstraints = false
     title.font = UIFont.systemFont(ofSize: 20)
@@ -26,7 +25,7 @@ class Cell: UITableViewCell {
     return title
   }()
 
-  private var descrip : UILabel = {
+  private lazy var descrip : UILabel = {
     var descrip = UILabel()
     descrip.translatesAutoresizingMaskIntoConstraints = false
     descrip.font = UIFont.systemFont(ofSize: 16)
@@ -45,11 +44,11 @@ class Cell: UITableViewCell {
     contentView.addSubview(title)
 
     NSLayoutConstraint.activate([
-      descrip.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20),
-      descrip.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-
       title.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20),
-      title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+      title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+
+      descrip.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20),
+      descrip.topAnchor.constraint(equalTo: image.centerYAnchor, constant: -5),
 
       image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
       image.bottomAnchor.constraint(equalTo: descrip.bottomAnchor),
@@ -63,7 +62,7 @@ class Cell: UITableViewCell {
     image.layer.cornerRadius = image.intrinsicContentSize.width / 2
   }
 
-  func config (model : Model) {
+  func config(model : Model) {
     descrip.text = model.descriprion
     title.text = model.title
     image.image = model.image
