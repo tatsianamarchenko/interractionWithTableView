@@ -8,7 +8,7 @@
 import UIKit
 
 class SecondViewController: UIViewController {
-
+  
   private lazy var imageSecond : UIImageView = {
     var image = UIImageView()
     image.layoutSubviews()
@@ -17,7 +17,7 @@ class SecondViewController: UIViewController {
     image.contentMode = .scaleAspectFit
     return image
   }()
-
+  
   private lazy var titleSecond : UILabel = {
     var title = UILabel()
     title.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,7 @@ class SecondViewController: UIViewController {
     title.textColor = .label
     return title
   }()
-
+  
   private lazy var descripSecond : UILabel = {
     var descrip = UILabel()
     descrip.translatesAutoresizingMaskIntoConstraints = false
@@ -34,13 +34,13 @@ class SecondViewController: UIViewController {
     descrip.textColor = .secondaryLabel
     return descrip
   }()
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .systemBackground
-
+    
     navigationBarConfig()
-
+    
     let stack = UIStackView(arrangedSubviews: [imageSecond, titleSecond, descripSecond])
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.axis = .vertical
@@ -54,7 +54,7 @@ class SecondViewController: UIViewController {
       imageSecond.heightAnchor.constraint(equalToConstant: imageSecond.intrinsicContentSize.height*2)
     ])
   }
-
+  
   private func navigationBarConfig() {
     let appearance = UINavigationBarAppearance()
     appearance.configureWithOpaqueBackground()
@@ -62,17 +62,17 @@ class SecondViewController: UIViewController {
     navigationItem.standardAppearance = appearance
     navigationItem.scrollEdgeAppearance = appearance
     navigationItem.compactAppearance = appearance
-
+    
     navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.backward.2.fill")?.withTintColor(.label, renderingMode: .alwaysOriginal), style: .plain, target: self, action: #selector(popVC))
-
+    
     navigationController?.navigationBar.isHidden = false
     navigationController?.navigationBar.prefersLargeTitles = true
   }
-
+  
   @objc func popVC() {
     navigationController?.popViewController(animated: true)
   }
-
+  
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     imageSecond.clipsToBounds = true
