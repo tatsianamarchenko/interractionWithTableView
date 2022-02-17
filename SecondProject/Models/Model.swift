@@ -18,4 +18,5 @@ class Model {
     self.title = title
     self.descriprion = description
   }
+  
 }
